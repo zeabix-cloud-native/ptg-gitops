@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+  name: mysql
+spec: 
+  destination:
+    namespace: app
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: mysql
+    repoURL: git@github.com:zeabix-cloud-native/ptg-gitops.git
+    targetRevision: main
+    helm: 
+      releaseName: mysql
+  syncPolicy:
+    automated: 
+      selfHeal: true
+    retry: 
+      backoff: 
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+      limit: 2
