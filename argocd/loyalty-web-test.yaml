@@ -3,18 +3,18 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   namespace: argocd
-  name: loyalty-web
+  name: loyalty-web-test
 spec: 
   destination:
     namespace: app
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: loyalty-web
+    path: loyalty-web-test
     repoURL: git@github.com:zeabix-cloud-native/ptg-gitops.git
     targetRevision: main
     helm: 
-      releaseName: loyalty-web
+      releaseName: loyalty-web-test
   syncPolicy:
     automated: 
       selfHeal: true
