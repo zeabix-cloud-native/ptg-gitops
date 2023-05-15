@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   # Replace this image registry
-  repository: "zeabixloyaltyacr.azurecr.io/loyalty-web:latest"
+  repository: "zeabixloyaltyacr.azurecr.io/loyalty-web"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
