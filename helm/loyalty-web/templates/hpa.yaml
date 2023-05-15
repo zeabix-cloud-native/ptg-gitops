@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "loyalty-web-test.fullname" . }}
+  name: {{ include "loyalty-web.fullname" . }}
   labels:
-    {{- include "loyalty-web-test.labels" . | nindent 4 }}
+    {{- include "loyalty-web.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "loyalty-web-test.fullname" . }}
+    name: {{ include "loyalty-web.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

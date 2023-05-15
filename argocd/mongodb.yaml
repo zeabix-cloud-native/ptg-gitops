@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: mongodb
+    path: helm/mongodb
     repoURL: git@github.com:zeabix-cloud-native/ptg-gitops.git
     targetRevision: main
     helm: 

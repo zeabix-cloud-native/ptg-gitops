@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "loyalty-web-test.fullname" . }}
+  name: {{ include "loyalty-web.fullname" . }}
   labels:
-    {{- include "loyalty-web-test.labels" . | nindent 4 }}
+    {{- include "loyalty-web.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "loyalty-web-test.selectorLabels" . | nindent 6 }}
+      {{- include "loyalty-web.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "loyalty-web-test.selectorLabels" . | nindent 8 }}
+        {{- include "loyalty-web.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "loyalty-web-test.serviceAccountName" . }}
+      serviceAccountName: {{ include "loyalty-web.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -33,27 +33,29 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          restartPolicy: {{ .Values.image.restartPolicy }}
+          terminationGracePeriodSeconds: {{ .Values.image.terminationGracePeriodSeconds }}
           envFrom:
           {{- if .Values.appEnv.secret.enabled }}
           - secretRef:
-              name: {{ include "loyalty-web-test.fullname" . }}-env
+              name: {{ include "loyalty-web.fullname" . }}-env
           {{- end }}
           {{- if .Values.appEnv.configMap.enabled }}
           - configMapRef:
-              name: {{ include "loyalty-web-test.fullname" . }}-env
+              name: {{ include "loyalty-web.fullname" . }}-env
           {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: http
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

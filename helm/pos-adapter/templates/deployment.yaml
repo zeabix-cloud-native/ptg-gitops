@@ -11,6 +11,15 @@ spec:
   selector:
     matchLabels:
       {{- include "pos-adapter.selectorLabels" . | nindent 6 }}
+  strategy:
+    {{- if not .Values.strategy.enabled }}
+    type: {{ .Values.strategy.type }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.strategy.maxUnavailable }}
+      maxSurge: {{ .Values.strategy.maxSurge }}
+    {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  progressDeadlineSeconds: {{ .Values.progressDeadlineSeconds }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}

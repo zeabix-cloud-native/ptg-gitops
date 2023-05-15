@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: profile-service
+    path: helm/profile-service
     repoURL: git@github.com:zeabix-cloud-native/ptg-gitops.git
     targetRevision: main
     helm: 

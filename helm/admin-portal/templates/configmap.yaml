@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name:  {{ include "loyalty-web-test.fullname" . }}-env
+  name:  {{ include "admin-portal.fullname" . }}-env
   labels:
-     {{- include "loyalty-web-test.labels" . | nindent 4 }}
+     {{- include "admin-portal.labels" . | nindent 4 }}
 data:
   {{- range $key, $val := .Values.appEnv.configMap }}
   {{- if (ne $key "enabled") }}

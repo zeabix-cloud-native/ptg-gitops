@@ -1,0 +1,14 @@
+{{- if .Values.appEnv.configMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  {{ include "bff-service.fullname" . }}-env
+  labels:
+     {{- include "bff-service.labels" . | nindent 4 }}
+data:
+  {{- range $key, $val := .Values.appEnv.configMap }}
+  {{- if (ne $key "enabled") }}
+  {{ $key | quote | indent 6}}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+{{- end }}
