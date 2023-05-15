@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "loyalty-web-test.fullname" . }}
+  labels:
+    {{- include "loyalty-web-test.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: TCP
+      name: {{ .Values.service.port }}
+  selector:
+    {{- include "loyalty-web-test.selectorLabels" . | nindent 4 }}
