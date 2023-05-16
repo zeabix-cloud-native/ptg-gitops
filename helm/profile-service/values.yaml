@@ -1,4 +1,4 @@
-# Default values for pos-adapter.
+# Default values for profile-service.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   # Replace this image registry
-  repository: "zeabixloyaltyacr.azurecr.io/pos-adapter"
+  repository: "zeabixloyaltyacr.azurecr.io/profile-service"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -111,15 +111,8 @@ appEnv:
     enabled: true
     PORT: "8080"
     APPINSIGHTS_CONNECTION_STRING:
-    INTERVAL: '25'
-    EVENTHUB_NAME: "saletx"
-    EVENTHUB_CONNECTION_STRING: "Endpoint=sb://ptg-ehub.servicebus.windows.net/;SharedAccessKeyName=saletxsas;SharedAccessKey=HczPO184K8+TDG70WkH4WxrwOyq9vaytq+AEhAq23Ok=;EntityPath=saletx"
-    MODE_PRODUCE_SLOW: "slow"
-    MODE_PRODUCE_FAST: "fast"
-    MODE_IDLE: "idle"
-    COUNTER_FAST: '3'
-    COUNTER_SLOW: '200'
-    MEMBER_LIST: 645b973f52e16d915653c52f,645d0746fb864e2cf5c3c0d1
-    SKU_LIST: 0001,0002,0003,0004,0005,0006,0007,0008,0009,0010
-    SHOP_LIST: 01,02,03,04,05,06
+    MONGODB_URI: "mongodb+srv://mongouser:H5u4dk_85@ptg-mongo-cluster.mongocluster.cosmos.azure.com/profiles_db?authMechanism=SCRAM-SHA-256"
+    DATABASE: "profiles_db"
+    CACHE_URI: "ptg-redis-cluster.redis.cache.windows.net:6380,password=StseTNccUqzklMffuMHaMnnujjv0anIulAzCaMK3jNo=,ssl=True,abortConnect=False"
+    CACHE_TIME: "1m"
     
