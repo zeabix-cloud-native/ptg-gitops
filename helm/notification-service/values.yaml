@@ -109,11 +109,12 @@ appEnv:
   # need to be inject to pod as environment variable, please consider using `secret` section.
   configMap:
     enabled: true
-    PORT: "8080"
-    APPINSIGHTS_CONNECTION_STRING:
     EMAIL_SERVICE_URL: "http://email-service:8080"
     SMS_SERVICE_URL: "http://sms-service:8080"
-    EVENTHUB_PARTITION_ID: '0'
-    EVENTHUB_NAME:
+    EVENTHUB_CONNECTION_STRING: "Endpoint=sb://ptg-ehub.servicebus.windows.net/;SharedAccessKeyName=notificationsas;SharedAccessKey=NtAzGSUtDAG44wOnJ99BL7rCOmCxqRaLL+AEhGOEhAQ=;EntityPath=notification"
+    EVENTHUB_NAME: ""
+    EVENTHUB_PARTITION_ID: "0"
+    APPINSIGHTS_CONNECTION_STRING: "InstrumentationKey=a1974d31-b963-4636-be97-4c9a61a4d49a;IngestionEndpoint=https://southeastasia-1.in.applicationinsights.azure.com/;LiveEndpoint=https://southeastasia.livediagnostics.monitor.azure.com/"
+    MAX_RETRIES: "3"
 
     

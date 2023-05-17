@@ -109,5 +109,9 @@ appEnv:
   # need to be inject to pod as environment variable, please consider using `secret` section.
   configMap:
     enabled: true
-    PORT: 8080
+    PORT: "8080"
     BFF_SERVICE_URL: "http://bff-service:8080"
+    NEXT_PUBLIC_HOST_NAME: "https://api.loyalty.z-unified.com"
+    NEXT_PUBLIC_AUTH_REDIRECT_URI: "https://admin.loyalty.z-unified.com/api/auth/callback"
+    NEXT_PUBLIC_AUTH_CLIENT_ID: "d843c09f-202b-4fee-a91e-8dbb9efce3a6"
+    NEXT_PUBLIC_AUTH_AUTHORITY: "https://login.microsoftonline.com/d13ad595-5883-4b3a-a953-bc0f981c0c35"

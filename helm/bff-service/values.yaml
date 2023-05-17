@@ -116,4 +116,4 @@ appEnv:
     PROMOTION_SERVICE_URL: "http://promotion-service:8080"
     VOUCHER_SERVICE_URL: "http://voucher-service:8080"
     LOYALTY_SERVICE_URL: "http://loyalty-service:8080"
-    APPINSIGHTS_CONNECTION_STRING: 
+    APPINSIGHTS_CONNECTION_STRING: "InstrumentationKey=a1974d31-b963-4636-be97-4c9a61a4d49a;IngestionEndpoint=https://southeastasia-1.in.applicationinsights.azure.com/;LiveEndpoint=https://southeastasia.livediagnostics.monitor.azure.com/"

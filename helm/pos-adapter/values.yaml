@@ -95,6 +95,9 @@ strategy:
 revisionHistoryLimit: 10
 progressDeadlineSeconds: 600
 
+initialDelaySeconds: 5
+periodSeconds: 5
+
 appEnv:
   # secret.enabled = true means the deployment will inject the environment variables regarding 
   # what defined in the secrets name `<application>-env`. Ensure that the secret is created
@@ -110,16 +113,17 @@ appEnv:
   configMap:
     enabled: true
     PORT: "8080"
-    APPINSIGHTS_CONNECTION_STRING:
-    INTERVAL: '25'
+    INTERVAL: "25"
     EVENTHUB_NAME: "saletx"
     EVENTHUB_CONNECTION_STRING: "Endpoint=sb://ptg-ehub.servicebus.windows.net/;SharedAccessKeyName=saletxsas;SharedAccessKey=HczPO184K8+TDG70WkH4WxrwOyq9vaytq+AEhAq23Ok=;EntityPath=saletx"
     MODE_PRODUCE_SLOW: "slow"
     MODE_PRODUCE_FAST: "fast"
     MODE_IDLE: "idle"
-    COUNTER_FAST: '3'
-    COUNTER_SLOW: '200'
-    MEMBER_LIST: 645b973f52e16d915653c52f,645d0746fb864e2cf5c3c0d1
-    SKU_LIST: 0001,0002,0003,0004,0005,0006,0007,0008,0009,0010
-    SHOP_LIST: 01,02,03,04,05,06
+    COUNTER_FAST: "3"
+    COUNTER_SLOW: "200"
+    MEMBER_LIST: "645b973f52e16d915653c52f,645d0746fb864e2cf5c3c0d1"
+    SKU_LIST: "0001,0002,0003,0004,0005,0006,0007,0008,0009,0010"
+    SHOP_LIST: "01,02,03,04,05,06"
+    APPINSIGHTS_CONNECTION_STRING: "InstrumentationKey=a1974d31-b963-4636-be97-4c9a61a4d49a;IngestionEndpoint=https://southeastasia-1.in.applicationinsights.azure.com/;LiveEndpoint=https://southeastasia.livediagnostics.monitor.azure.com/"
+
     

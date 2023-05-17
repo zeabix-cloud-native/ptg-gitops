@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "loyalty-batch.fullname" . }}
+  labels:
+    {{- include "loyalty-batch.labels" . | nindent 4 }}
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  activeDeadlineSeconds: {{ .Values.activeDeadlineSeconds }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "loyalty-batch.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "loyalty-batch.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          restartPolicy: {{ .Values.image.restartPolicy }}
+          envFrom:
+          {{- if .Values.appEnv.secret.enabled }}
+          - secretRef:
+              name: {{ include "loyalty-service.fullname" . }}-env
+          {{- end }}
+          {{- if .Values.appEnv.configMap.enabled }}
+          - configMapRef:
+              name: {{ include "loyalty-service.fullname" . }}-env
+          {{- end }}

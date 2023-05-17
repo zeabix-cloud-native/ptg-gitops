@@ -100,6 +100,10 @@ appEnv:
   # need to be inject to pod as environment variable, please consider using `secret` section.
   configMap:
     enabled: true
-    PORT: 8080
-    BFF_SERVICE_URL: http://bff-service:8080
+    PORT: "8080"
+    NEXT_PUBLIC_HOST_NAME: "https://api.loyalty.z-unified.com"
+    NEXT_PUBLIC_AUTH_CLIENT_ID: "0292235c-92e8-46ef-975a-86ba446cdafa"
+    NEXT_PUBLIC_AUTH_REDIRECT_URI: "https://loyalty.z-unified.com/api/auth/callback"
+    NEXT_PUBLIC_AUTH_AUTHORITY: "https://ptgworkshop2.b2clogin.com/ptgworkshop2.onmicrosoft.com"
+    NEXT_PUBLIC_AUTH_DOMAIN: "https://ptgworkshop2.b2clogin.com"
 

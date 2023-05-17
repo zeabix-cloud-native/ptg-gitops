@@ -95,6 +95,9 @@ strategy:
 revisionHistoryLimit: 10
 progressDeadlineSeconds: 600
 
+initialDelaySeconds: 5
+periodSeconds: 5
+
 appEnv:
   # secret.enabled = true means the deployment will inject the environment variables regarding 
   # what defined in the secrets name `<application>-env`. Ensure that the secret is created
@@ -110,9 +113,10 @@ appEnv:
   configMap:
     enabled: true
     PORT: "8080"
-    APPINSIGHTS_CONNECTION_STRING:
     MONGODB_URI: "mongodb+srv://mongouser:H5u4dk_85@ptg-mongo-cluster.mongocluster.cosmos.azure.com/profiles_db?authMechanism=SCRAM-SHA-256"
     DATABASE: "profiles_db"
     CACHE_URI: "ptg-redis-cluster.redis.cache.windows.net:6380,password=StseTNccUqzklMffuMHaMnnujjv0anIulAzCaMK3jNo=,ssl=True,abortConnect=False"
     CACHE_TIME: "1m"
+    APPINSIGHTS_CONNECTION_STRING: "InstrumentationKey=a1974d31-b963-4636-be97-4c9a61a4d49a;IngestionEndpoint=https://southeastasia-1.in.applicationinsights.azure.com/;LiveEndpoint=https://southeastasia.livediagnostics.monitor.azure.com/"
+
     

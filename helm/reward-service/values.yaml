@@ -1,0 +1,120 @@
+# Default values for reward-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  # Replace this image registry
+  repository: "zeabixloyaltyacr.azurecr.io/reward-service"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 30
+  dnsPolicy: ClusterFirst
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: "alb"
+  annotations: 
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:136966027758:certificate/3cc97839-3b73-4c49-afad-468fce7f6325
+  hosts:
+    - paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+strategy:
+  enabled: true
+  type: RollingUpdate
+  maxUnavailable: "25%"
+  maxSurge: "25%"
+
+revisionHistoryLimit: 10
+progressDeadlineSeconds: 600
+
+initialDelaySeconds: 5
+periodSeconds: 5
+
+appEnv:
+  # secret.enabled = true means the deployment will inject the environment variables regarding 
+  # what defined in the secrets name `<application>-env`. Ensure that the secret is created
+  # before provision this helm, otherwise the pod will fail during the creation
+  secret:
+    enabled: false
+
+  # confiMap.enabled = true is very similar to secret.enabled, except the configMap will be auto 
+  # created by this helm with name `<application>-env` and all of the key in configmap.* will be 
+  # inject to that configMap and also inject to the deployment/pod during the creation time.
+  # NOTE: The configMap is designed for non-sensitive data only, for any token, credential that 
+  # need to be inject to pod as environment variable, please consider using `secret` section.
+  configMap:
+    enabled: true
+    PORT: "8080"
+    DB_HOST: "ptg-mysql-cluster.mysql.database.azure.com:3306"
+    DATABASE: "reward"
+    DB_USERNAME: "reward_service"
+    DB_PASSWORD: "reward_service123"
+    APPINSIGHTS_CONNECTION_STRING: "InstrumentationKey=a1974d31-b963-4636-be97-4c9a61a4d49a;IngestionEndpoint=https://southeastasia-1.in.applicationinsights.azure.com/;LiveEndpoint=https://southeastasia.livediagnostics.monitor.azure.com/"

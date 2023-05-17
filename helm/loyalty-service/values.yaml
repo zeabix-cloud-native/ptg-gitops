@@ -95,6 +95,9 @@ strategy:
 revisionHistoryLimit: 10
 progressDeadlineSeconds: 600
 
+initialDelaySeconds: 5
+periodSeconds: 5
+
 appEnv:
   # secret.enabled = true means the deployment will inject the environment variables regarding 
   # what defined in the secrets name `<application>-env`. Ensure that the secret is created
@@ -110,7 +113,7 @@ appEnv:
   configMap:
     enabled: true
     PORT: "8080"
-    APPINSIGHTS_CONNECTION_STRING:
+    APPINSIGHTS_CONNECTION_STRING: "InstrumentationKey=a1974d31-b963-4636-be97-4c9a61a4d49a;IngestionEndpoint=https://southeastasia-1.in.applicationinsights.azure.com/;LiveEndpoint=https://southeastasia.livediagnostics.monitor.azure.com/"
     IN_EVENTHUB_CONNECTION_STRING: "Endpoint=sb://ptg-ehub.servicebus.windows.net/;SharedAccessKeyName=point-recvsas;SharedAccessKey=8mXfr+ryffzhURbku2V38ZofGoLomxbih+AEhGnnVIA=;EntityPath=point-recv"
     IN_EVENTHUB_NAME: "point-recv"
     IN_CONSUMER_GROUP: "$Default"
@@ -122,12 +125,12 @@ appEnv:
     DB_NAME: "loyalty"
     DB_USERNAME: "loyalty_service"
     DB_PASSWORD: "loyalty_service123"
-    DB_DEBUG: false
-    DB_MAX_POOLSIZE: '100'
-    DB_CONFIGURATION_DEFAULT_AMOUNT_PER_POINT: '25'
+    DB_DEBUG: "false"
+    DB_MAX_POOLSIZE: "100"
+    DB_CONFIGURATION_DEFAULT_AMOUNT_PER_POINT: "25"
     REWARD_SERVICE_URL: "http://reward-service:8080"
     PROFILE_SERVICE_URL: "http://profile-service:8080"
     VOUCHER_SERVICE_URL: "http://voucher-service:8080"
-    PARTNER_LIST: 1,2,3,4,5
-    PARTNER_NAMES: SCB,KBANK,KTB,BBL,KKP
+    PARTNER_LIST: "1,2,3,4,5"
+    PARTNER_NAMES: "SCB,KBANK,KTB,BBL,KKP"
     
